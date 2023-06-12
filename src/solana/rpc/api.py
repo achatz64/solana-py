@@ -109,7 +109,7 @@ class Client(_ClientCore):  # pylint: disable=too-many-public-methods
         endpoint: Optional[str] = None,
         commitment: Optional[Commitment] = None,
         blockhash_cache: Union[BlockhashCache, bool] = False,
-        timeout: float = 10,
+        timeout: float = 100,
         extra_headers: Optional[Dict[str, str]] = None,
     ):
         """Init API client."""
