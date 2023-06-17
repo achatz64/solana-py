@@ -31,7 +31,7 @@ class SolanaRpcException(SolanaExceptionBase):
         **kwargs: Any,  # noqa: ARG004
     ) -> str:
         rpc_method = args[1].__class__.__name__
-        return f'{type(exc)} raised in "{rpc_method}" endpoint request'
+        return f'{exc} raised in "{rpc_method}" endpoint request'
 
 
 def handle_exceptions(internal_exception_cls, *exception_types_caught):
