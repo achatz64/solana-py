@@ -5,6 +5,9 @@ import os
 from typing import Any, Dict, Optional, Tuple, Type, TypeVar, Union, overload
 
 import httpx
+
+DEFAULT_TIMEOUT = 100.
+
 from solders.rpc.requests import Body
 from solders.rpc.requests import batch_to_json as batch_req_json
 from solders.rpc.responses import Resp, RPCError, RPCResult
@@ -13,7 +16,6 @@ from solders.rpc.responses import batch_from_json as batch_resp_json
 from ..core import RPCException
 from ..types import URI
 
-DEFAULT_TIMEOUT = 100
 
 
 T = TypeVar("T", bound=RPCResult)
@@ -72,9 +74,7 @@ class _HTTPProviderCore:  # pylint: disable=too-few-public-methods
         headers = {"Content-Type": "application/json"}
         if self.extra_headers:
             headers.update(self.extra_headers)
-        common_parameters = {"url": self.endpoint_uri, "headers": headers}
-        if self.timeout:
-            common_parameters.update({"timeout": self.timeout})
+        common_parameters = {"url": self.endpoint_uri, "headers": headers, "timeout": self.timeout}
         return common_parameters
 
     def _build_request_kwargs(self, body: Body) -> Dict[str, Any]:
